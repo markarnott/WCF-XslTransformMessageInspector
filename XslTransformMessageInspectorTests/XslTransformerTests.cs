@@ -69,14 +69,16 @@ private const string inputData =
             input = XmlReader.Create(ms2);
         }
 
-        //TODO write some tests
         [Test]
-        public void we_should_have_tests()
+        public void should_transform_input()
         {
-            XslTransformMessageInspector.XslTransformer.transform(input, styleSheet);
+            XmlReader xrdr = XslTransformMessageInspector.XslTransformer.Transform(input, styleSheet);
 
-            bool Yes = true;
-            Yes.Should().BeTrue();
+            string transformedOutput = xrdr.ReadOuterXml();
+            transformedOutput.Trim().Should().StartWith("<TimeOfDayResponse");
+            transformedOutput.Should().Contain("This is a test");
         }
+
+        //TODO test TransformMessage
     }
 }

@@ -16,27 +16,49 @@ limitations under the License.
 **************************************/
 #endregion
 
+using System.IO;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
+using System.Xml;
 
 namespace XslTransformMessageInspector
 {
     public class XslTransformBehavior : IEndpointBehavior
     {
+        public string StyleSheetPath { get; set; }
+        private XmlReader _styleSheetXRdr;
+
+        public XslTransformBehavior(string styleSheetPath)
+        {
+            StyleSheetPath = styleSheetPath;
+        }
+
         public void AddBindingParameters(ServiceEndpoint serviceEndpoint, System.ServiceModel.Channels.BindingParameterCollection bindingParameters)
         { }
 
         public void ApplyClientBehavior(ServiceEndpoint serviceEndpoint, ClientRuntime clientRuntime)
         {
-            clientRuntime.MessageInspectors.Add(new ClientMessageInspector());
+            clientRuntime.MessageInspectors.Add(new MessageInspectors(LoadStyleSheet(StyleSheetPath)));
         }
 
         public void ApplyDispatchBehavior(ServiceEndpoint serviceEndpoint, EndpointDispatcher endpointDispatcher)
         {
-            endpointDispatcher.DispatchRuntime.MessageInspectors.Add(new DispatchMessageInspector());
+            endpointDispatcher.DispatchRuntime.MessageInspectors.Add(new MessageInspectors(LoadStyleSheet(StyleSheetPath)));
         }
 
         public void Validate(ServiceEndpoint serviceEndpoint)
         { }
+
+        public XmlReader LoadStyleSheet(string styleSheetPath)
+        {
+            if (_styleSheetXRdr != null)
+                return _styleSheetXRdr;
+
+            if(File.Exists(styleSheetPath))
+            {
+                _styleSheetXRdr = XmlReader.Create(styleSheetPath);
+            }
+            return _styleSheetXRdr;
+        }
     }
 }

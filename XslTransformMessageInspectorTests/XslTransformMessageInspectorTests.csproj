@@ -51,8 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="XslTransformer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XslTransformerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

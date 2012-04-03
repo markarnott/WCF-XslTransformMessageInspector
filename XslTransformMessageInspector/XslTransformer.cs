@@ -18,9 +18,7 @@ limitations under the License.
 
 using System.IO;
 using System.ServiceModel.Channels;
-using System.Text;
 using System.Xml;
-using System.Xml.XPath;
 using System.Xml.Xsl;
 
 namespace XslTransformMessageInspector
@@ -28,32 +26,20 @@ namespace XslTransformMessageInspector
     public class XslTransformer 
     {
 
-
-        public static void transform(ref Message message, XmlReader styleSheet)
+        public static void TransformMessage(ref Message message, XmlReader styleSheet)
         {
             if (message.IsEmpty || message.IsFault)
                 return;
 
-            var xsl = new XslCompiledTransform();
-            xsl.Load(styleSheet);
-
-            Stream memStr = new MemoryStream();
-            XmlWriter xWriter = XmlWriter.Create(memStr); 
-
-            xsl.Transform(message.GetReaderAtBodyContents(), xWriter);
-
-            memStr.Position = 0;
-            XmlReader xrdr = XmlReader.Create(memStr);
-            xrdr.MoveToContent();
+            XmlReader xrdr = Transform(message.GetReaderAtBodyContents(), styleSheet);
 
             Message xformedMsg = Message.CreateMessage(message.Version, null, xrdr);
             xformedMsg.Headers.CopyHeadersFrom(message.Headers);
             xformedMsg.Properties.CopyProperties(message.Properties);
             message = xformedMsg;
-            xWriter.Close();
         }
 
-        public static XmlReader transform(XmlReader input, XmlReader styleSheet)
+        public static XmlReader Transform(XmlReader input, XmlReader styleSheet)
         {
             var xsl = new XslCompiledTransform();
             xsl.Load(styleSheet);
@@ -64,6 +50,7 @@ namespace XslTransformMessageInspector
             xsl.Transform(input, xWriter);
 
             memStr.Position = 0;
+
             XmlReader xrdr = XmlReader.Create(memStr);
             xrdr.MoveToContent();
             xWriter.Close();

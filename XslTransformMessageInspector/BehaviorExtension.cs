@@ -17,6 +17,7 @@ limitations under the License.
 #endregion
 
 using System;
+using System.Configuration;
 using System.ServiceModel.Configuration;
 
 namespace XslTransformMessageInspector
@@ -33,7 +34,15 @@ namespace XslTransformMessageInspector
 
         protected override object CreateBehavior()
         {
-            return new XslTransformBehavior();
+            return new XslTransformBehavior(StyleSheetPath);
         }
+
+        [ConfigurationProperty("styleSheetPath", DefaultValue = "XslTransformMessageInspector.xsl", IsRequired = false)]
+        public string StyleSheetPath
+        {
+            get { return base["styleSheetPath"].ToString(); }
+            set { base["styleSheetPath"] = value; }
+        }
+
     }
 }
