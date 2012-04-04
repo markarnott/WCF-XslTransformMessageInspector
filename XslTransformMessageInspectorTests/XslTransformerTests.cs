@@ -16,10 +16,7 @@ limitations under the License.
 **************************************/
 #endregion
 
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Xml;
 using FluentAssertions;
@@ -28,7 +25,7 @@ using NUnit.Framework;
 namespace XslTransformMessageInspectorTests
 {
     [TestFixture]
-    public class XslTransformer
+    public class XslTransformerTests
     {
 private const string xslTemplate =
 @"<xsl:stylesheet version=""1.0"" xmlns:xsl=""http://www.w3.org/1999/XSL/Transform"" xmlns:t=""http://WcfXformTest.Example.Org"" >

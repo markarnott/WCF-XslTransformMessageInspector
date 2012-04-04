@@ -16,6 +16,7 @@ limitations under the License.
 **************************************/
 #endregion
 
+using System.Diagnostics;
 using System.IO;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
@@ -25,12 +26,12 @@ namespace XslTransformMessageInspector
 {
     public class XslTransformBehavior : IEndpointBehavior
     {
-        public string StyleSheetPath { get; set; }
+        private string _styleSheetPath;
         private XmlReader _styleSheetXRdr;
 
         public XslTransformBehavior(string styleSheetPath)
         {
-            StyleSheetPath = styleSheetPath;
+            _styleSheetPath = styleSheetPath;
         }
 
         public void AddBindingParameters(ServiceEndpoint serviceEndpoint, System.ServiceModel.Channels.BindingParameterCollection bindingParameters)
@@ -38,12 +39,12 @@ namespace XslTransformMessageInspector
 
         public void ApplyClientBehavior(ServiceEndpoint serviceEndpoint, ClientRuntime clientRuntime)
         {
-            clientRuntime.MessageInspectors.Add(new MessageInspectors(LoadStyleSheet(StyleSheetPath)));
+            clientRuntime.MessageInspectors.Add(new MessageInspectors(LoadStyleSheet(_styleSheetPath)));
         }
 
         public void ApplyDispatchBehavior(ServiceEndpoint serviceEndpoint, EndpointDispatcher endpointDispatcher)
         {
-            endpointDispatcher.DispatchRuntime.MessageInspectors.Add(new MessageInspectors(LoadStyleSheet(StyleSheetPath)));
+            endpointDispatcher.DispatchRuntime.MessageInspectors.Add(new MessageInspectors(LoadStyleSheet(_styleSheetPath)));
         }
 
         public void Validate(ServiceEndpoint serviceEndpoint)
@@ -51,12 +52,18 @@ namespace XslTransformMessageInspector
 
         public XmlReader LoadStyleSheet(string styleSheetPath)
         {
-            if (_styleSheetXRdr != null)
+            if (_styleSheetXRdr != null && _styleSheetPath == styleSheetPath)
                 return _styleSheetXRdr;
 
             if(File.Exists(styleSheetPath))
             {
                 _styleSheetXRdr = XmlReader.Create(styleSheetPath);
+                _styleSheetPath = styleSheetPath;
+            }
+            else
+            {
+                Debug.WriteLine("XslTransformBehavior - could not load stylesheet");
+                Debug.WriteLine("\t" + styleSheetPath);
             }
             return _styleSheetXRdr;
         }
