@@ -1,0 +1,44 @@
+<GetWeatherDataResponse xmlns="http://Microsoft.Samples.WindowsForms">
+  <GetWeatherDataResult xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+    <WeatherData>
+      <HighTemperature>86</HighTemperature>
+      <Locality>Los Angeles</Locality>
+      <LowTemperature>60</LowTemperature>
+    </WeatherData>
+    <WeatherData>
+      <HighTemperature>56</HighTemperature>
+      <Locality>Rio de Janeiro</Locality>
+      <LowTemperature>40</LowTemperature>
+    </WeatherData>
+    <WeatherData>
+      <HighTemperature>81</HighTemperature>
+      <Locality>New York</Locality>
+      <LowTemperature>55</LowTemperature>
+    </WeatherData>
+    <WeatherData>
+      <HighTemperature>66</HighTemperature>
+      <Locality>London</Locality>
+      <LowTemperature>45</LowTemperature>
+    </WeatherData>
+    <WeatherData>
+      <HighTemperature>71</HighTemperature>
+      <Locality>Paris</Locality>
+      <LowTemperature>50</LowTemperature>
+    </WeatherData>
+    <WeatherData>
+      <HighTemperature>81</HighTemperature>
+      <Locality>Rome</Locality>
+      <LowTemperature>60</LowTemperature>
+    </WeatherData>
+    <WeatherData>
+      <HighTemperature>91</HighTemperature>
+      <Locality>Cairo</Locality>
+      <LowTemperature>70</LowTemperature>
+    </WeatherData>
+    <WeatherData>
+      <HighTemperature>86</HighTemperature>
+      <Locality>Beijing</Locality>
+      <LowTemperature>60</LowTemperature>
+    </WeatherData>
+  </GetWeatherDataResult>
+</GetWeatherDataResponse>

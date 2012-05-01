@@ -15,6 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 **************************************/
 #endregion
+
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -22,7 +23,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("XslTransformMessageInspector")]
+[assembly: AssemblyTitle("Example.Client")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
@@ -37,7 +38,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("559cefa5-c664-4117-8941-491b8c4be0d6")]
+[assembly: Guid("316ccd00-c334-4771-94a0-b305ad4accb6")]
 
 // Version information for an assembly consists of the following four values:
 //
